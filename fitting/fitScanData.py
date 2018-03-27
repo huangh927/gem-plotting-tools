@@ -40,6 +40,7 @@ class ScanDataFitter(DeadChannelFinder):
     def feed(self, event):
         super(ScanDataFitter, self).feed(event)
         self.scanHistos[event.vfatN][event.vfatCH].Fill(event.vcal,event.Nhits)
+        self.scanHistos[event.vfatN][event.vfatCH].SetBinErrorOption(r.TH1D.kPoisson)
         if(event.vcal > 250):
             self.scanCount[event.vfatN][event.vfatCH] += event.Nhits
         if self.Nev < 0:
