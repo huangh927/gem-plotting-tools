@@ -31,6 +31,7 @@ class ScanDataFitter(DeadChannelFinder):
             for ch in range(0,128):
                 self.scanFuncs[vfat][ch] = r.TF1('scurveFit_vfat%i_chan%i'%(vfat,ch),'[3]*TMath::Erf((TMath::Max([2],x)-[0])/(TMath::Sqrt(2)*[1]))+[3]',1,253)
                 self.scanHistos[vfat][ch] = r.TH1D('scurve_vfat%i_chan%i_h'%(vfat,ch),'scurve_vfat%i_chan%i_h'%(vfat,ch),254,0.5,254.5)
+                self.scanHistos[vfat][ch].SetBinErrorOption(r.TH1D.kPoisson)
                 self.scanCount[vfat][ch] = 0
 
         self.fitValid = [ np.zeros(128, dtype=bool) for vfat in range(24) ]
